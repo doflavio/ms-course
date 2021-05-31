@@ -18,7 +18,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	
 	private static final String[] OPERATOR = {"/hr-worker/**"};
 	
-	private static final String[] ADMIN = {"/hr-payroll/**","/hr-user/**"};
+	private static final String[] ADMIN = {"/hr-payroll/**","/hr-user/**","/actuator/**","/hr-worker/actuator/**","/hr-oauth/actuator/**"};
 	
 	@Autowired
 	private JwtTokenStore tokenStore;
@@ -33,7 +33,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 		http.authorizeRequests()
 		.antMatchers(PUBLIC).permitAll()
 		.antMatchers(HttpMethod.GET,OPERATOR).hasAnyRole("OPERATOR","ADMIN")
-		
 		.antMatchers(ADMIN).hasRole("ADMIN")
 		.anyRequest().authenticated();
 		
